@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello!</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body class="bg-secondary text-white">
+  <h1>Hello, {{ user.first_name }}!</h1>
+   <div class="table-wrapper-scroll-y my-custom-scrollbar">
+   <h4> Your trips: </h4>
+            <table class="table table-secondary mt-3 ">
+                <thead>
+                    <tr>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Plan</th>
+                        <th scoope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trips %}
+                    <tr>
+                        <td><a href="/trip/{{ trip.id }}/check" class="btn btn-outline-primary">{{trip.destination}}</a></td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td>{{trip.plan}}</td>
+                        <td>
+                        {% if trip.planner.id == user.id %}
+                           <a href="/trip/{{ trip.id }}/delete" class="btn btn-outline-dark">Remove</a>
+                           <a href="/trip/{{ trip.id }}/edit" class="btn btn-outline-dark">Edit</a>
+                        
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+        </tbody>
+  <a href="/logout" class="btn btn-outline-light mt-3">Logout</a> <a href="/trip/new" class="btn btn-outline-light mt-3">Create a new trip!</a>
+</body>
+</html>
